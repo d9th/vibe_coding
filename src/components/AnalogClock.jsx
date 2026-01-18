@@ -11,16 +11,26 @@ const AnalogClock = () => {
     return () => clearInterval(timer)
   }, [])
 
-  const getHandAngles = () => {
-    const hours = time.getHours()
-    const minutes = time.getMinutes()
-    const seconds = time.getSeconds()
+  // 時刻の値を取得
+  const hours = time.getHours()
+  const minutes = time.getMinutes()
+  const seconds = time.getSeconds()
 
+  // アナログ時計の針の角度を計算
+  const getHandAngles = () => {
     const secondAngle = seconds * 6
     const minuteAngle = minutes * 6 + seconds * 0.1
     const hourAngle = (hours % 12) * 30 + minutes * 0.5
 
     return { hourAngle, minuteAngle, secondAngle }
+  }
+
+  // デジタル時刻をフォーマット
+  const formatTime = () => {
+    const h = String(hours).padStart(2, '0')
+    const m = String(minutes).padStart(2, '0')
+    const s = String(seconds).padStart(2, '0')
+    return `${h}:${m}:${s}`
   }
 
   const { hourAngle, minuteAngle, secondAngle } = getHandAngles()
@@ -164,6 +174,14 @@ const AnalogClock = () => {
           fill="#333"
         />
       </svg>
+
+      {/* デジタル時刻表示 */}
+      <div
+        data-testid="digital-time"
+        className="mt-6 text-3xl font-mono font-bold text-gray-800"
+      >
+        {formatTime()}
+      </div>
     </div>
   )
 }

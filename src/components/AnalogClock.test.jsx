@@ -99,4 +99,50 @@ describe('AnalogClock', () => {
     const markers = screen.getAllByTestId(/hour-marker-/)
     expect(markers).toHaveLength(12)
   })
+
+  // デジタル時刻表示のテスト
+  describe('デジタル時刻表示', () => {
+    it('デジタル時刻表示要素が存在すること', () => {
+      render(<AnalogClock />)
+      const digitalDisplay = screen.getByTestId('digital-time')
+      expect(digitalDisplay).toBeInTheDocument()
+    })
+
+    it('時刻がHH:MM:SS形式で表示されること', () => {
+      const mockDate = new Date('2024-01-01T15:30:45')
+      vi.setSystemTime(mockDate)
+
+      render(<AnalogClock />)
+      const digitalDisplay = screen.getByTestId('digital-time')
+      expect(digitalDisplay.textContent).toMatch(/\d{2}:\d{2}:\d{2}/)
+    })
+
+    it('1桁の数字が0埋めされること', () => {
+      const mockDate = new Date('2024-01-01T09:05:03')
+      vi.setSystemTime(mockDate)
+
+      render(<AnalogClock />)
+      const digitalDisplay = screen.getByTestId('digital-time')
+      expect(digitalDisplay.textContent).toBe('09:05:03')
+    })
+
+    it('時間が経過すると表示が更新されること', () => {
+      const mockDate = new Date('2024-01-01T12:00:00')
+      vi.setSystemTime(mockDate)
+
+      render(<AnalogClock />)
+      const digitalDisplay = screen.getByTestId('digital-time')
+
+      // 初期状態（12:00:00）
+      expect(digitalDisplay.textContent).toBe('12:00:00')
+
+      // 1秒進める
+      act(() => {
+        vi.advanceTimersByTime(1000)
+      })
+
+      // 1秒経過後（12:00:01）
+      expect(digitalDisplay.textContent).toBe('12:00:01')
+    })
+  })
 })
