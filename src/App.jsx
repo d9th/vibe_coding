@@ -1,11 +1,10 @@
 import React from 'react'
 import AnalogClock from './components/AnalogClock'
-import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <h1>アナログ時計</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center">
+      <h1 className="text-4xl font-bold text-gray-800 mb-8">アナログ時計</h1>
       <AnalogClock />
     </div>
   )

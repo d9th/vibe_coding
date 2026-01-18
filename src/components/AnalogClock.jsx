@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import './AnalogClock.css'
 
 const AnalogClock = () => {
   const [time, setTime] = useState(new Date())
@@ -78,12 +77,17 @@ const AnalogClock = () => {
   }
 
   return (
-    <div className="analog-clock" data-testid="analog-clock">
+    <div className="flex justify-center items-center p-5" data-testid="analog-clock">
       <svg
         width="300"
         height="300"
         viewBox="-150 -150 300 300"
         data-testid="clock-svg"
+        className="rounded-full transition-transform duration-300 hover:scale-105"
+        style={{
+          filter: 'drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15))',
+          background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'
+        }}
       >
         {/* 時計の外枠 */}
         <circle

@@ -16,6 +16,7 @@ TDD（テスト駆動開発）手法で実装したReactアナログ時計アプ
 - Vite
 - Vitest
 - React Testing Library
+- Tailwind CSS
 
 ## セットアップ
 
